@@ -2,8 +2,10 @@ import React from 'react';
 import {
   BlockQuote,
   Cite,
+  Code,
   Deck,
   Heading,
+  Fill,
   ListItem,
   List,
   Image,
@@ -11,22 +13,42 @@ import {
   Slide,
   Text,
   SlideSet,
+  Layout,
+  Fit,
 } from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
-import ContentSlide from './master/ContentSlide';
-import MySlides from './master/DividerSlide';
+import Terminal from 'spectacle-terminal';
+import preloader from "spectacle/lib/utils/preloader";
+// import styled from 'styled-components';
+
+const mergeRebaseImages = {
+  img01: require("./assets/rebase-vs-merge/01.svg"),
+  img02: require("./assets/rebase-vs-merge/02.svg"),
+  img03: require("./assets/rebase-vs-merge/03.svg"),
+  img04: require("./assets/rebase-vs-merge/04.svg"),
+  img05: require("./assets/rebase-vs-merge/05.svg"),
+  img06: require("./assets/rebase-vs-merge/06.svg"),
+  img07: require("./assets/rebase-vs-merge/07.svg"),
+  img08: require("./assets/rebase-vs-merge/08.svg"),
+  img09: require("./assets/rebase-vs-merge/09.svg"),
+  img10: require("./assets/rebase-vs-merge/10.svg"),
+}
 
 const images = {
   deltas: require("./assets/deltas.png"),
   firstGitCommit: require("./assets/first-git-commit.png"),
   linus: require("./assets/linus.png"),
-  merge: require("./assets/merge.png"),
-  reabaseMeme: require("./assets/reabase-meme.png"),
+  me: require("./assets/headshot.jpg"),
+  mergeMeme: require("./assets/merge.png"),
+  reabaseMeme: require("./assets/rebase-meme.png"),
   snapshots: require("./assets/snapshots.png"),
   stagingDirectories: require("./assets/staging-directories.png"),
   whatIsABranch: require("./assets/what-is-a-branch.png"),
   whatIsACommit: require("./assets/what-is-a-commit.png"),
+  mergeRebaseImages,
 };
+
+preloader(images);
 
 require('normalize.css');
 
@@ -43,6 +65,13 @@ const theme = createTheme(
   }
 );
 
+const TitleSlide = Slide;
+const SectionSlide = Slide;
+const ContentHeading = Heading;
+const ContentSubHeading = Text;
+const CustomListItem = ListItem;
+const CustomCode = Code;
+
 export default class Presentation extends React.Component {
   render() {
     return (
@@ -51,50 +80,71 @@ export default class Presentation extends React.Component {
         transitionDuration={500}
         theme={theme}
       >
-        <Slide transition={['zoom']} bgColor="primary">
+        <TitleSlide transition={['zoom']} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Git
           </Heading>
           <Text>
             In case of fire: git commit, git push, leave the building
           </Text>
+        </TitleSlide>
+        <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={3} caps lineHeight={1} textColor="secondary">
+            Who am I and why am I talking to you?
+          </Heading>
+          <Layout>
+            <Fit>
+              <Image
+                src={images.me}
+                height={200}
+                padding="0 20px"
+              />
+            </Fit>
+            <Fill>
+              <Text textColor="tertiary" textAlign="left" margin="0 0 20px">
+                Deloitte Digital, London
+              </Text>
+              <Text textColor="tertiary" textAlign="left" margin="0 0 20px">
+                Tech Lead passionate about Mobile, Front End, Devops.
+              </Text>
+            </Fill>
+          </Layout>
         </Slide>
-        <Slide transition={['fade']} bgColor="primary">
+        <SectionSlide transition={['fade']} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Contents
           </Heading>
           <List>
             <ListItem>History</ListItem>
             <ListItem>Fundamentals</ListItem>
-            <ListItem>Basics</ListItem>
-            <ListItem>Branching</ListItem>
+            <ListItem>Rebase vs Merge</ListItem>
             <ListItem>More Advanced Git</ListItem>
           </List>
-        </Slide>
+        </SectionSlide>
         <Slide transition={['fade']} bgColor="primary">
-          <Heading size={3} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={3} fit caps lineHeight={1} textColor="secondary">
             History
-          </Heading>
+          </ContentHeading>
           <Text>Why, When, Who?</Text>
-          <List>
-            <ListItem>Linux kernel is a massive open source project.</ListItem>
-            <ListItem>In the 90s changes to software was managed by passing round files and patches.</ListItem>
-            <ListItem>Early 00s used a revision control system called BitKeeper.</ListItem>
-            <ListItem>New system?  What does it need?</ListItem>
-            <ListItem>Speed, simple, light weight branching model, distributed, able to handle large projects.</ListItem>
-          </List>
+            <List>
+              <CustomListItem >Linux kernel is a massive open source project.</CustomListItem>
+              <CustomListItem>In the 90s changes to software was managed by passing round files and patches.</CustomListItem>
+              <CustomListItem>Early 00s used a revision control system called BitKeeper.</CustomListItem>
+              <CustomListItem>New system?  What does it need?</CustomListItem>
+              <CustomListItem>Speed, simple, light weight branching model, distributed, able to handle large projects.</CustomListItem>
+            </List>
         </Slide>
         <Slide transition={['fade']} bgColor="primary">
-          <Heading size={3} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={3} fit caps lineHeight={1} textColor="secondary">
             History
-          </Heading>
+          </ContentHeading>
           <Text>Why, When, Who?</Text>
           <Image src={images.firstGitCommit}/>
         </Slide>
         <Slide transition={['fade']} bgColor="primary">
-          <Heading size={3} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={3} fit caps lineHeight={1} textColor="secondary">
             History
-          </Heading>
+          </ContentHeading>
           <Text>Linus Quotes</Text>
           <List>
             <ListItem>I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'git’.</ListItem>
@@ -106,37 +156,168 @@ export default class Presentation extends React.Component {
             <ListItem>The fact that ACPI was designed by a group of monkeys high on LSD, and is some of the worst designs in the industry obviously makes running it at any point pretty damn ugly.</ListItem>
           </List>
         </Slide>
-        <Slide transition={['fade']}>
+        <SectionSlide transition={['fade']}>
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Fundamentals
           </Heading>
-        </Slide>
+        </SectionSlide>
         <Slide transition={['fade']}>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
             How other VCS stores files
-          </Heading>
+          </ContentHeading>
           <Text>Differences</Text>
           <Image src={images.deltas}/>
         </Slide>
         <Slide transition={['fade']}>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
             How git stores files
-          </Heading>
+          </ContentHeading>
           <Text>Snapshots, Not Differences</Text>
           <Image src={images.snapshots}/>
         </Slide>
         <Slide transition={['fade']}>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
             Three Stages
-          </Heading>
-          <Image src={images.}/>
+          </ContentHeading>
+          <Image src={images.stagingDirectories}/>
         </Slide>
         <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            What is a commit?
+          </ContentHeading>
+          <Image src={images.whatIsACommit}/>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            What is a branch?
+          </ContentHeading>
+          <Image src={images.whatIsABranch}/>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            The Command Line?
+          </ContentHeading>
+          <BlockQuote>
+            <Quote textSize={20} textColor="secondary">
+              For one, the command line is the only place you can run all Git commands – most of the
+              GUIs implement only a partial subset of Git functionality for simplicity.
+              If you know how to run the command-line version, you can probably also 
+              figure out how to run the GUI version, while the opposite is not necessarily true.
+              Also, while your choice of graphical client is a matter of personal taste, all users will
+              have the command-line tools installed and available.
+            </Quote>
+            <Cite textColor="secondary">Pro Git book</Cite>
+          </BlockQuote>
+        </Slide>
+        <SectionSlide transition={['fade']}>
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            How git stores files
+            Rebase vs Merge
           </Heading>
-          <Text>Snapshots, Not Differences</Text>
-          <Image src={images.snapshots}/>
+          <Text>The first thing to understand about git rebase is that it solves the same
+             problem as git merge. Both of these commands are designed to integrate changes 
+             from one branch into another branch—they just do it in very different ways.
+          </Text>
+        </SectionSlide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Merge
+          </ContentHeading>
+          <Text>Merging brings two lines of development together while preserving the ancestry of each commit history.</Text>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Merge
+          </ContentHeading>
+          <Image src={images.mergeRebaseImages.img01}/>
+        </Slide>
+        <Slide
+          transition={['fade']}
+        >
+          <ContentHeading size={1} textColor="secondary">
+            Merge
+          </ContentHeading>
+          <CustomCode>git merge master</CustomCode>
+          <Image src={images.mergeRebaseImages.img02}/>
+        </Slide>
+        <Slide
+          transition={['fade']}
+        >
+          <ContentHeading size={1} textColor="secondary">
+            Merge
+          </ContentHeading>
+          <Layout>
+            <Fill>
+              <List>
+                <CustomListItem>Pro: simple</CustomListItem>
+                <CustomListItem>Pro: non-destructive operation</CustomListItem>
+                <CustomListItem>Con: extraneous merge commit</CustomListItem>
+              </List>
+            </Fill>
+            <Fit>
+              <Image height="200" width="200" src={images.mergeMeme}/>
+            </Fit>
+          </Layout>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Rebase
+          </ContentHeading>
+          <Text>
+            This moves the entire feature branch to begin on the tip of the master branch,
+            effectively incorporating all of the new commits in master. But, instead of using 
+            a merge commit, rebasing re-writes the project history by creating brand new commits 
+            for each commit in the original branch.
+          </Text>
+        </Slide>
+        <Slide
+          transition={['fade']}
+        >
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Rebase
+          </ContentHeading>
+          <CustomCode>git rebase master</CustomCode>
+          <Image src={images.mergeRebaseImages.img03}/>
+        </Slide>
+
+        <Slide   transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Rebase
+          </ContentHeading>
+          <Layout>
+            <Fill>
+              <ul>
+                <li>Pro: Eliminates unnecessary merge commits</li>
+                <li>Pro: Linear project history</li>
+                <li>Con: Potentially have to resolve conflicts multiple times</li>
+                <li>Con: Safety</li>
+                <li>Con: Tracebility</li>
+              </ul>
+            </Fill>
+            <Fit>
+              <Image src={images.reabaseMeme}/>
+            </Fit>
+          </Layout>
+        </Slide>
+        <SectionSlide transition={['fade']}>
+          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+            More Advanced Git
+          </Heading>
+        </SectionSlide>
+        <Slide>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Interactive Rebase
+          </ContentHeading>
+          <CustomCode>git rebase -i master</CustomCode>
+        </Slide>
+        <Slide>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Hooks
+          </ContentHeading>
+        </Slide>
+        <Slide>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Reset
+          </ContentHeading>
         </Slide>
       </Deck>
     );
