@@ -41,6 +41,7 @@ const resetImages = {
 }
 
 const images = {
+  commitMsgHook: require("./assets/commit-msg.png"),
   deltas: require("./assets/deltas.png"),
   firstGitCommit: require("./assets/first-git-commit.png"),
   linus: require("./assets/linus.png"),
@@ -204,19 +205,17 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide transition={['fade']}>
           <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
-            The Command Line?
+            Commit Messages
           </ContentHeading>
-          <BlockQuote>
-            <Quote textSize={20} textColor="secondary">
-              For one, the command line is the only place you can run all Git commands – most of the
-              GUIs implement only a partial subset of Git functionality for simplicity.
-              If you know how to run the command-line version, you can probably also 
-              figure out how to run the GUI version, while the opposite is not necessarily true.
-              Also, while your choice of graphical client is a matter of personal taste, all users will
-              have the command-line tools installed and available.
-            </Quote>
-            <Cite textColor="secondary">Pro Git book</Cite>
-          </BlockQuote>
+          <ContentSubHeading>Seems trivial but very useful having consistent clear messages</ContentSubHeading>
+          <List>
+            <CustomListItem></CustomListItem>
+            <CustomListItem></CustomListItem>
+            <CustomListItem></CustomListItem>
+            <CustomListItem></CustomListItem>
+            <CustomListItem></CustomListItem>
+            <CustomListItem></CustomListItem>
+          </List>
         </Slide>
         <SectionSlide>
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
@@ -302,9 +301,9 @@ export default class Presentation extends React.Component {
                 <CustomListItem>Con: Tracebility</CustomListItem>
               </List>
             </Fill>
-            <Fit>
+            <Fill>
               <Image src={images.reabaseMeme}/>
-            </Fit>
+            </Fill>
           </Layout>
         </Slide>
         <SectionSlide>
@@ -336,6 +335,13 @@ export default class Presentation extends React.Component {
             Hooks
           </ContentHeading>
           <ContentSubHeading>Located in ./git/hooks folder at repo root.</ContentSubHeading>
+          <List>
+            <CustomListItem>Loads of examples in hooks folder </CustomListItem>
+            <CustomListItem>Hook into lifecycle of git to perform checks or actions</CustomListItem>
+            <CustomListItem>E.g. Commit-msg hook to check commit msg conforms to a standard</CustomListItem>
+          </List>
+          <Image src={images.commitMsgHook}/>
+          
         </Slide>
         <Slide transition={['fade']}>
           <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
@@ -359,12 +365,49 @@ export default class Presentation extends React.Component {
           <Image src={images.resetImages.img03}/>
         </Slide>
         <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={1} caps lineHeight={1} textColor="secondary">
             Reset
           </ContentHeading>
           <ContentSubHeading>Hard</ContentSubHeading>
-          <Image src={images.resetImages.img04}/>
+          <Fit>
+            <Image src={images.resetImages.img04}/>
+          </Fit>
         </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            The Command Line?
+          </ContentHeading>
+          <BlockQuote>
+            <Quote textSize={20} textColor="secondary">
+              For one, the command line is the only place you can run all Git commands – most of the
+              GUIs implement only a partial subset of Git functionality for simplicity.
+              If you know how to run the command-line version, you can probably also 
+              figure out how to run the GUI version, while the opposite is not necessarily true.
+              Also, while your choice of graphical client is a matter of personal taste, all users will
+              have the command-line tools installed and available.
+            </Quote>
+            <Cite textColor="secondary">Pro Git book</Cite>
+          </BlockQuote>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            My favourite commands
+          </ContentHeading>
+          <List>
+            <CustomListItem>git blame (-C)</CustomListItem>
+            <CustomListItem>git diff branch1..branch2</CustomListItem>
+            <CustomListItem>git diff branch1..branch2 – path/to/file</CustomListItem>
+            <CustomListItem>git checkout branchname – path/to/file</CustomListItem>
+            <CustomListItem>gitk</CustomListItem>
+            <CustomListItem>git log --oneline --decorate --graph –all</CustomListItem>
+            <CustomListItem>git push origin :some-feature</CustomListItem>
+            {/* <CustomListItem>git show <commit hash></CustomListItem> */}
+            <CustomListItem>git svn – complete set of svn commands</CustomListItem>
+          </List>
+        </Slide>
+        <SectionSlide>
+          <Heading>Questions</Heading>
+        </SectionSlide>
       </Deck>
     );
   }
