@@ -12,7 +12,6 @@ import {
   Quote,
   Slide,
   Text,
-  SlideSet,
   Layout,
   Fit,
 } from 'spectacle';
@@ -34,6 +33,13 @@ const mergeRebaseImages = {
   img10: require("./assets/rebase-vs-merge/10.svg"),
 }
 
+const resetImages = {
+  img01: require("./assets/reset/reset-01.png"),
+  img02: require("./assets/reset/reset-02.png"),
+  img03: require("./assets/reset/reset-03.png"),
+  img04: require("./assets/reset/reset-04.png"),
+}
+
 const images = {
   deltas: require("./assets/deltas.png"),
   firstGitCommit: require("./assets/first-git-commit.png"),
@@ -45,7 +51,10 @@ const images = {
   stagingDirectories: require("./assets/staging-directories.png"),
   whatIsABranch: require("./assets/what-is-a-branch.png"),
   whatIsACommit: require("./assets/what-is-a-commit.png"),
+  interactiveRebaseUI: require("./assets/interactive-rebase-ui.png"),
+  interactiveRebaseCL: require("./assets/interactive-rebase-cl.png"),
   mergeRebaseImages,
+  resetImages,
 };
 
 preloader(images);
@@ -93,13 +102,13 @@ export default class Presentation extends React.Component {
             Who am I and why am I talking to you?
           </Heading>
           <Layout>
-            <Fit>
+            <Fill>
               <Image
                 src={images.me}
                 height={200}
                 padding="0 20px"
               />
-            </Fit>
+            </Fill>
             <Fill>
               <Text textColor="tertiary" textAlign="left" margin="0 0 20px">
                 Deloitte Digital, London
@@ -110,7 +119,7 @@ export default class Presentation extends React.Component {
             </Fill>
           </Layout>
         </Slide>
-        <SectionSlide transition={['fade']} bgColor="primary">
+        <SectionSlide >
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Contents
           </Heading>
@@ -156,7 +165,7 @@ export default class Presentation extends React.Component {
             <ListItem>The fact that ACPI was designed by a group of monkeys high on LSD, and is some of the worst designs in the industry obviously makes running it at any point pretty damn ugly.</ListItem>
           </List>
         </Slide>
-        <SectionSlide transition={['fade']}>
+        <SectionSlide>
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Fundamentals
           </Heading>
@@ -209,7 +218,7 @@ export default class Presentation extends React.Component {
             <Cite textColor="secondary">Pro Git book</Cite>
           </BlockQuote>
         </Slide>
-        <SectionSlide transition={['fade']}>
+        <SectionSlide>
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Rebase vs Merge
           </Heading>
@@ -253,9 +262,9 @@ export default class Presentation extends React.Component {
                 <CustomListItem>Con: extraneous merge commit</CustomListItem>
               </List>
             </Fill>
-            <Fit>
+            <Fill>
               <Image height="200" width="200" src={images.mergeMeme}/>
-            </Fit>
+            </Fill>
           </Layout>
         </Slide>
         <Slide transition={['fade']}>
@@ -285,39 +294,76 @@ export default class Presentation extends React.Component {
           </ContentHeading>
           <Layout>
             <Fill>
-              <ul>
-                <li>Pro: Eliminates unnecessary merge commits</li>
-                <li>Pro: Linear project history</li>
-                <li>Con: Potentially have to resolve conflicts multiple times</li>
-                <li>Con: Safety</li>
-                <li>Con: Tracebility</li>
-              </ul>
+              <List>
+                <CustomListItem>Pro: Eliminates unnecessary merge commits</CustomListItem>
+                <CustomListItem>Pro: Linear project history</CustomListItem>
+                <CustomListItem>Con: Potentially have to resolve conflicts multiple times</CustomListItem>
+                <CustomListItem>Con: Safety</CustomListItem>
+                <CustomListItem>Con: Tracebility</CustomListItem>
+              </List>
             </Fill>
             <Fit>
               <Image src={images.reabaseMeme}/>
             </Fit>
           </Layout>
         </Slide>
-        <SectionSlide transition={['fade']}>
+        <SectionSlide>
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             More Advanced Git
           </Heading>
         </SectionSlide>
-        <Slide>
+        <Slide transition={['fade']}>
           <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
             Interactive Rebase
           </ContentHeading>
-          <CustomCode>git rebase -i master</CustomCode>
+          <ContentSubHeading><CustomCode>git rebase -i master</CustomCode></ContentSubHeading>
+          <Layout>
+            <Fill>
+              <List>
+                <CustomListItem>Really good tool to rewrite history</CustomListItem>
+                <CustomListItem>Squash commits that don’t really add much</CustomListItem>
+                <CustomListItem>Reorder to make more chronological sense</CustomListItem>
+              </List>
+            </Fill>
+            <Fill>
+              <Image src={images.interactiveRebaseUI}/>
+              <Image src={images.interactiveRebaseCL}/>
+            </Fill>
+          </Layout>
         </Slide>
-        <Slide>
+        <Slide transition={['fade']}>
           <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
             Hooks
           </ContentHeading>
+          <ContentSubHeading>Located in ./git/hooks folder at repo root.</ContentSubHeading>
         </Slide>
-        <Slide>
+        <Slide transition={['fade']}>
           <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
             Reset
           </ContentHeading>
+          <ContentSubHeading>Soft, Mixed, Hard ?</ContentSubHeading>
+          <Image src={images.resetImages.img01}/>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Reset
+          </ContentHeading>
+          <ContentSubHeading>Soft</ContentSubHeading>
+          <Image src={images.resetImages.img02}/>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Reset
+          </ContentHeading>
+          <ContentSubHeading>Mixed</ContentSubHeading>
+          <Image src={images.resetImages.img03}/>
+        </Slide>
+        <Slide transition={['fade']}>
+          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+            Reset
+          </ContentHeading>
+          <ContentSubHeading>Hard</ContentSubHeading>
+          <Image src={images.resetImages.img04}/>
         </Slide>
       </Deck>
     );
