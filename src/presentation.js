@@ -14,11 +14,12 @@ import {
   Text,
   Layout,
   Fit,
+  Markdown,
 } from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
 import Terminal from 'spectacle-terminal';
-import preloader from "spectacle/lib/utils/preloader";
-// import styled from 'styled-components';
+import preloader from 'spectacle/lib/utils/preloader';
+import styled from 'styled-components';
 
 const mergeRebaseImages = {
   img01: require("./assets/rebase-vs-merge/01.svg"),
@@ -62,12 +63,24 @@ preloader(images);
 
 require('normalize.css');
 
+// const theme = createTheme(
+//   {
+//     primary: "#2D2D2D",
+//     secondary: "white",
+//     tertiary: "#999",
+//   }, {
+//     primary: "Open Sans",
+//     secondary: "Montserrat",
+//   }
+// );
+
+
 const theme = createTheme(
   {
-    primary: 'white',
-    secondary: '#1F2022',
-    tertiary: '#03A9FC',
-    quartenary: '#CECECE',
+    primary: '#FFF0A5',
+    secondary: '#468966',
+    tertiary: '#B64926',
+    quartenary: '#FFB03B',
   },
   {
     primary: 'Montserrat',
@@ -75,67 +88,84 @@ const theme = createTheme(
   }
 );
 
+// https://github.com/FormidableLabs/spectacle/issues/426
+// This doesn't work so have to use fecking important while a proper fix is made
+
+// styled(Slide)`
+//   background: ${theme.screen.colors.primary} !important;
+// `;
 const TitleSlide = Slide;
 const SectionSlide = Slide;
-const ContentHeading = Heading;
-const ContentSubHeading = Text;
-const CustomListItem = ListItem;
+const ContentHeading = styled(Heading)`
+  color: ${theme.screen.colors.secondary} !important;
+`;
+const ContentSubHeading = styled(Text)`
+  color: ${theme.screen.colors.secondary} !important;
+  opacity: 0.7;
+  font-style: italic;
+  margin-left: 0.25rem !important;
+`;
+const CustomListItem = styled(ListItem)`
+  color: ${theme.screen.colors.tertiary} !important;
+  font-size: 2rem !important;;
+`;
 const CustomCode = Code;
+const RoundedImage = styled(Image)`
+  border-radius: 50%;
+`;
+const ContentText = styled(Text)`
+  font-size: 2rem !important;
+  color: ${theme.screen.colors.tertiary} !important;
+`
 
 export default class Presentation extends React.Component {
   render() {
     return (
       <Deck
-        transition={['zoom', 'slide']}
+        transition={['fade']}
         transitionDuration={500}
         theme={theme}
       >
-        <TitleSlide transition={['zoom']} bgColor="primary">
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+        <TitleSlide transition={['zoom']}>
+          <Heading size={2} caps lineHeight={1}>
             Git
           </Heading>
-          <Text>
+          <ContentText textColor="tertiary">
             In case of fire: git commit, git push, leave the building
-          </Text>
+          </ContentText>
         </TitleSlide>
-        <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={3} caps lineHeight={1} textColor="secondary">
-            Who am I and why am I talking to you?
-          </Heading>
-          <Layout>
-            <Fill>
-              <Image
-                src={images.me}
-                height={200}
-                padding="0 20px"
-              />
-            </Fill>
-            <Fill>
-              <Text textColor="tertiary" textAlign="left" margin="0 0 20px">
-                Deloitte Digital, London
-              </Text>
-              <Text textColor="tertiary" textAlign="left" margin="0 0 20px">
-                Tech Lead passionate about Mobile, Front End, Devops.
-              </Text>
-            </Fill>
-          </Layout>
+        <Slide bgColor="primary">
+          <ContentHeading size={3} caps lineHeight={1} margin="30px">
+            Who am I?
+          </ContentHeading>
+          <RoundedImage
+            src={images.me}
+            height="200px"
+            padding="0 20px"
+          />
+          <ContentText>
+            Deloitte Digital, London
+          </ContentText>
+          <ContentText textColor="tertiary" textSize="2rem">
+            Tech lead passionate about Mobile, Front End, Devops
+          </ContentText>
         </Slide>
         <SectionSlide >
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <ContentHeading size={3} caps lineHeight={1}>
             Contents
-          </Heading>
+          </ContentHeading>
           <List>
-            <ListItem>History</ListItem>
-            <ListItem>Fundamentals</ListItem>
-            <ListItem>Rebase vs Merge</ListItem>
-            <ListItem>More Advanced Git</ListItem>
+            <CustomListItem>History</CustomListItem>
+            <CustomListItem>Fundamentals</CustomListItem>
+            <CustomListItem>Rebase vs Merge</CustomListItem>
+            <CustomListItem>More Advanced Git</CustomListItem>
           </List>
         </SectionSlide>
-        <Slide transition={['fade']} bgColor="primary">
-          <ContentHeading size={3} fit caps lineHeight={1} textColor="secondary">
+        <Slide  bgColor="primary">
+          <ContentHeading size={3} caps lineHeight={1}>
             History
           </ContentHeading>
-          <Text>Why, When, Who?</Text>
+          <ContentSubHeading>Why, When, Who?</ContentSubHeading>
             <List>
               <CustomListItem >Linux kernel is a massive open source project.</CustomListItem>
               <CustomListItem>In the 90s changes to software was managed by passing round files and patches.</CustomListItem>
@@ -144,81 +174,83 @@ export default class Presentation extends React.Component {
               <CustomListItem>Speed, simple, light weight branching model, distributed, able to handle large projects.</CustomListItem>
             </List>
         </Slide>
-        <Slide transition={['fade']} bgColor="primary">
-          <ContentHeading size={3} fit caps lineHeight={1} textColor="secondary">
+        <Slide  bgColor="primary">
+          <ContentHeading size={3} caps lineHeight={1}>
             History
           </ContentHeading>
-          <Text>Why, When, Who?</Text>
-          <Image src={images.firstGitCommit}/>
+          <ContentSubHeading>Why, When, Who?</ContentSubHeading>
+          <Image height="550px" src={images.firstGitCommit}/>
         </Slide>
-        <Slide transition={['fade']} bgColor="primary">
-          <ContentHeading size={3} fit caps lineHeight={1} textColor="secondary">
+        <Slide  bgColor="primary">
+          <ContentHeading size={3} caps lineHeight={1}>
             History
           </ContentHeading>
-          <Text>Linus Quotes</Text>
+          <ContentSubHeading>Linus Quotes</ContentSubHeading>
           <List>
-            <ListItem>I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'git’.</ListItem>
-            <ListItem>*YOU* are full of bullshit.</ListItem>
-            <ListItem>I'm a bastard. I have absolutely no clue why people can ever think otherwise</ListItem>
-            <ListItem>A lot of people still like Solaris, but I'm in active competition with them, and so I hope they die</ListItem>
-            <ListItem>I'm always right. This time I'm just even more right than usual.</ListItem>
-            <ListItem>Is ‘I hope you all die a painful death’ too strong?</ListItem>
-            <ListItem>The fact that ACPI was designed by a group of monkeys high on LSD, and is some of the worst designs in the industry obviously makes running it at any point pretty damn ugly.</ListItem>
+            <CustomListItem>I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'git’.</CustomListItem>
+            <CustomListItem>*YOU* are full of bullshit.</CustomListItem>
+            <CustomListItem>I'm a bastard. I have absolutely no clue why people can ever think otherwise</CustomListItem>
+            <CustomListItem>A lot of people still like Solaris, but I'm in active competition with them, and so I hope they die</CustomListItem>
+            <CustomListItem>I'm always right. This time I'm just even more right than usual.</CustomListItem>
+            <CustomListItem>Is ‘I hope you all die a painful death’ too strong?</CustomListItem>
+            <CustomListItem>The fact that ACPI was designed by a group of monkeys high on LSD, and is some of the worst designs in the industry obviously makes running it at any point pretty damn ugly.</CustomListItem>
           </List>
         </Slide>
         <SectionSlide>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <Heading size={1} fit caps lineHeight={1}>
             Fundamentals
           </Heading>
         </SectionSlide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3} caps lineHeight={1}>
             How other VCS stores files
           </ContentHeading>
-          <Text>Differences</Text>
+          <ContentSubHeading>Differences</ContentSubHeading>
           <Image src={images.deltas}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3} caps lineHeight={1}>
             How git stores files
           </ContentHeading>
-          <Text>Snapshots, Not Differences</Text>
+          <ContentSubHeading>Snapshots, Not Differences</ContentSubHeading>
           <Image src={images.snapshots}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3} caps lineHeight={1}>
             Three Stages
           </ContentHeading>
           <Image src={images.stagingDirectories}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3} caps lineHeight={1}>
             What is a commit?
           </ContentHeading>
           <Image src={images.whatIsACommit}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3}  caps lineHeight={1}>
             What is a branch?
           </ContentHeading>
           <Image src={images.whatIsABranch}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3}  caps lineHeight={1}>
             Commit Messages
           </ContentHeading>
           <ContentSubHeading>Seems trivial but very useful having consistent clear messages</ContentSubHeading>
           <List>
-            <CustomListItem></CustomListItem>
-            <CustomListItem></CustomListItem>
-            <CustomListItem></CustomListItem>
-            <CustomListItem></CustomListItem>
-            <CustomListItem></CustomListItem>
-            <CustomListItem></CustomListItem>
+             <CustomListItem>Prepend all subject with ticket number</CustomListItem>
+             <CustomListItem>Separate subject from body with a blank line</CustomListItem>
+             <CustomListItem>Limit the subject line to 50 characters</CustomListItem>
+             <CustomListItem>Capitalize the subject line</CustomListItem>
+             <CustomListItem>Do not end the subject line with a period</CustomListItem>
+             <CustomListItem>Use the imperative mood in the subject line</CustomListItem>
+             <CustomListItem>Wrap the body at 72 characters</CustomListItem>
+             <CustomListItem>Use the body to explain what and why vs. how</CustomListItem>
           </List>
         </Slide>
-        <SectionSlide>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+        <SectionSlide transition={['zoom', 'slide']}>
+          <Heading size={3}  caps lineHeight={1}>
             Rebase vs Merge
           </Heading>
           <Text>The first thing to understand about git rebase is that it solves the same
@@ -226,31 +258,27 @@ export default class Presentation extends React.Component {
              from one branch into another branch—they just do it in very different ways.
           </Text>
         </SectionSlide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3}  caps lineHeight={1}>
             Merge
           </ContentHeading>
           <Text>Merging brings two lines of development together while preserving the ancestry of each commit history.</Text>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={3}  caps lineHeight={1}>
             Merge
           </ContentHeading>
           <Image src={images.mergeRebaseImages.img01}/>
         </Slide>
-        <Slide
-          transition={['fade']}
-        >
-          <ContentHeading size={1} textColor="secondary">
+        <Slide>
+          <ContentHeading size={1}>
             Merge
           </ContentHeading>
           <CustomCode>git merge master</CustomCode>
           <Image src={images.mergeRebaseImages.img02}/>
         </Slide>
-        <Slide
-          transition={['fade']}
-        >
-          <ContentHeading size={1} textColor="secondary">
+        <Slide>
+          <ContentHeading size={1}>
             Merge
           </ContentHeading>
           <Layout>
@@ -266,8 +294,8 @@ export default class Presentation extends React.Component {
             </Fill>
           </Layout>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Rebase
           </ContentHeading>
           <Text>
@@ -277,18 +305,15 @@ export default class Presentation extends React.Component {
             for each commit in the original branch.
           </Text>
         </Slide>
-        <Slide
-          transition={['fade']}
-        >
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide>
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Rebase
           </ContentHeading>
           <CustomCode>git rebase master</CustomCode>
           <Image src={images.mergeRebaseImages.img03}/>
         </Slide>
-
-        <Slide   transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide>
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Rebase
           </ContentHeading>
           <Layout>
@@ -306,13 +331,13 @@ export default class Presentation extends React.Component {
             </Fill>
           </Layout>
         </Slide>
-        <SectionSlide>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+        <SectionSlide transition={['zoom', 'slide']}>
+          <Heading size={1} fit caps lineHeight={1}>
             More Advanced Git
           </Heading>
         </SectionSlide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Interactive Rebase
           </ContentHeading>
           <ContentSubHeading><CustomCode>git rebase -i master</CustomCode></ContentSubHeading>
@@ -330,8 +355,8 @@ export default class Presentation extends React.Component {
             </Fill>
           </Layout>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Hooks
           </ContentHeading>
           <ContentSubHeading>Located in ./git/hooks folder at repo root.</ContentSubHeading>
@@ -343,29 +368,29 @@ export default class Presentation extends React.Component {
           <Image src={images.commitMsgHook}/>
           
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Soft, Mixed, Hard ?</ContentSubHeading>
           <Image src={images.resetImages.img01}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Soft</ContentSubHeading>
           <Image src={images.resetImages.img02}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Mixed</ContentSubHeading>
           <Image src={images.resetImages.img03}/>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Hard</ContentSubHeading>
@@ -373,12 +398,12 @@ export default class Presentation extends React.Component {
             <Image src={images.resetImages.img04}/>
           </Fit>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             The Command Line?
           </ContentHeading>
           <BlockQuote>
-            <Quote textSize={20} textColor="secondary">
+            <Quote textSize={20}>
               For one, the command line is the only place you can run all Git commands – most of the
               GUIs implement only a partial subset of Git functionality for simplicity.
               If you know how to run the command-line version, you can probably also 
@@ -386,11 +411,11 @@ export default class Presentation extends React.Component {
               Also, while your choice of graphical client is a matter of personal taste, all users will
               have the command-line tools installed and available.
             </Quote>
-            <Cite textColor="secondary">Pro Git book</Cite>
+            <Cite>Pro Git book</Cite>
           </BlockQuote>
         </Slide>
-        <Slide transition={['fade']}>
-          <ContentHeading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide >
+          <ContentHeading size={1} fit caps lineHeight={1}>
             My favourite commands
           </ContentHeading>
           <List>
@@ -405,7 +430,7 @@ export default class Presentation extends React.Component {
             <CustomListItem>git svn – complete set of svn commands</CustomListItem>
           </List>
         </Slide>
-        <SectionSlide>
+        <SectionSlide transition={['zoom', 'slide']}>
           <Heading>Questions</Heading>
         </SectionSlide>
       </Deck>
