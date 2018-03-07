@@ -197,9 +197,9 @@ export default class Presentation extends React.Component {
           </List>
         </Slide>
         <SectionSlide>
-          <Heading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={1} fit caps lineHeight={1}>
             Fundamentals
-          </Heading>
+          </ContentHeading>
         </SectionSlide>
         <Slide >
           <ContentHeading size={3} caps lineHeight={1}>
@@ -250,37 +250,35 @@ export default class Presentation extends React.Component {
           </List>
         </Slide>
         <SectionSlide transition={['zoom', 'slide']}>
-          <Heading size={3}  caps lineHeight={1}>
+          <ContentHeading size={3}  caps lineHeight={1}>
             Rebase vs Merge
-          </Heading>
-          <Text>The first thing to understand about git rebase is that it solves the same
+          </ContentHeading>
+          <ContentText> The first thing to understand about git rebase is that it solves the same
              problem as git merge. Both of these commands are designed to integrate changes 
              from one branch into another branch—they just do it in very different ways.
-          </Text>
+          </ContentText>
         </SectionSlide>
         <Slide >
-          <ContentHeading size={3}  caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Merge
           </ContentHeading>
-          <Text>Merging brings two lines of development together while preserving the ancestry of each commit history.</Text>
+          <ContentText>Merging brings two lines of development together while preserving the ancestry of each commit history.</ContentText>
         </Slide>
         <Slide >
-          <ContentHeading size={3}  caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Merge
           </ContentHeading>
-          <Image src={images.mergeRebaseImages.img01}/>
+          <Image height="500px" src={images.mergeRebaseImages.img01}/>
         </Slide>
         <Slide>
-          <ContentHeading size={1}>
+          <ContentHeading caps size={3}>
             Merge
           </ContentHeading>
           <CustomCode>git merge master</CustomCode>
-          <Image src={images.mergeRebaseImages.img02}/>
+          <Image height="500px" src={images.mergeRebaseImages.img02}/>
         </Slide>
         <Slide>
-          <ContentHeading size={1}>
-            Merge
-          </ContentHeading>
+          <ContentHeading margin="0 0 30px" caps size={3}>Merge</ContentHeading>
           <Layout>
             <Fill>
               <List>
@@ -290,30 +288,30 @@ export default class Presentation extends React.Component {
               </List>
             </Fill>
             <Fill>
-              <Image height="200" width="200" src={images.mergeMeme}/>
+              <Image height="300" src={images.mergeMeme}/>
             </Fill>
           </Layout>
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Rebase
           </ContentHeading>
-          <Text>
+          <ContentText>
             This moves the entire feature branch to begin on the tip of the master branch,
             effectively incorporating all of the new commits in master. But, instead of using 
             a merge commit, rebasing re-writes the project history by creating brand new commits 
             for each commit in the original branch.
-          </Text>
+          </ContentText>
         </Slide>
         <Slide>
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} lineHeight={1} caps >
             Rebase
           </ContentHeading>
           <CustomCode>git rebase master</CustomCode>
-          <Image src={images.mergeRebaseImages.img03}/>
+          <Image height="500px" src={images.mergeRebaseImages.img03}/>
         </Slide>
         <Slide>
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} lineHeight={1} caps  margin="0 0 30px">
             Rebase
           </ContentHeading>
           <Layout>
@@ -327,17 +325,17 @@ export default class Presentation extends React.Component {
               </List>
             </Fill>
             <Fill>
-              <Image src={images.reabaseMeme}/>
+              <Image  height="300" src={images.reabaseMeme}/>
             </Fill>
           </Layout>
         </Slide>
         <SectionSlide transition={['zoom', 'slide']}>
-          <Heading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             More Advanced Git
-          </Heading>
+          </ContentHeading>
         </SectionSlide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Interactive Rebase
           </ContentHeading>
           <ContentSubHeading><CustomCode>git rebase -i master</CustomCode></ContentSubHeading>
@@ -356,7 +354,7 @@ export default class Presentation extends React.Component {
           </Layout>
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Hooks
           </ContentHeading>
           <ContentSubHeading>Located in ./git/hooks folder at repo root.</ContentSubHeading>
@@ -369,41 +367,41 @@ export default class Presentation extends React.Component {
           
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Soft, Mixed, Hard ?</ContentSubHeading>
-          <Image src={images.resetImages.img01}/>
+          <Image height="500px" src={images.resetImages.img01}/>
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Soft</ContentSubHeading>
-          <Image src={images.resetImages.img02}/>
+          <Image height="500px" src={images.resetImages.img02}/>
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Mixed</ContentSubHeading>
-          <Image src={images.resetImages.img03}/>
+          <Image height="500px" src={images.resetImages.img03}/>
         </Slide>
         <Slide >
-          <ContentHeading size={1} caps lineHeight={1}>
+          <ContentHeading size={3} lineHeight={1}>
             Reset
           </ContentHeading>
           <ContentSubHeading>Hard</ContentSubHeading>
           <Fit>
-            <Image src={images.resetImages.img04}/>
+            <Image height="500px" src={images.resetImages.img04}/>
           </Fit>
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             The Command Line?
           </ContentHeading>
           <BlockQuote>
-            <Quote textSize={20}>
+            <Quote textColor="tertiary" textSize={20}>
               For one, the command line is the only place you can run all Git commands – most of the
               GUIs implement only a partial subset of Git functionality for simplicity.
               If you know how to run the command-line version, you can probably also 
@@ -415,7 +413,7 @@ export default class Presentation extends React.Component {
           </BlockQuote>
         </Slide>
         <Slide >
-          <ContentHeading size={1} fit caps lineHeight={1}>
+          <ContentHeading size={3} caps lineHeight={1}>
             My favourite commands
           </ContentHeading>
           <List>
