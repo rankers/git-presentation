@@ -338,7 +338,7 @@ export default class Presentation extends React.Component {
           <ContentHeading size={3} caps lineHeight={1}>
             Interactive Rebase
           </ContentHeading>
-          <ContentSubHeading><CustomCode>git rebase -i master</CustomCode></ContentSubHeading>
+          <ContentSubHeading><CustomCode>git rebase -i HEAD~3</CustomCode></ContentSubHeading>
           <Layout>
             <Fill>
               <List>
@@ -414,18 +414,20 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide >
           <ContentHeading size={3} caps lineHeight={1}>
-            My favourite commands
+            My favourite commands + useful links
           </ContentHeading>
           <List>
             <CustomListItem>git blame (-C)</CustomListItem>
             <CustomListItem>git diff branch1..branch2</CustomListItem>
             <CustomListItem>git diff branch1..branch2 – path/to/file</CustomListItem>
             <CustomListItem>git checkout branchname – path/to/file</CustomListItem>
-            <CustomListItem>gitk</CustomListItem>
             <CustomListItem>git log --oneline --decorate --graph –all</CustomListItem>
             <CustomListItem>git push origin :some-feature</CustomListItem>
             {/* <CustomListItem>git show <commit hash></CustomListItem> */}
             <CustomListItem>git svn – complete set of svn commands</CustomListItem>
+            <CustomListItem>gitk</CustomListItem>
+            <CustomListItem>http://www.ndpsoftware.com/git-cheatsheet.html</CustomListItem>
+            
           </List>
         </Slide>
         <SectionSlide transition={['zoom', 'slide']}>
